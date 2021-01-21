@@ -1,0 +1,254 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Graph Search</title>
+    <style type="text/css">
+        body {
+            overflow-x: hidden;
+        }
+        
+        #mynetwork {
+            width: 600px;
+            height: 400px;
+        }
+        
+        #main-footer {
+            background: #000;
+            color: #fff;
+        }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <div class="container">
+            <a href="#" id="title-algorithm" class="navbar-brand"></a>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a href="index.html" class="nav-link">Algorithms</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container" style="margin-top:100px;">
+        <h1 style=" text-align: center; ">Menu</h1>
+        </br>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <h5 class="card-header">Node</h5>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="node-id"><h6>Id</h6></label>
+                            <input type="text" class="form-control" id="node-id" value="H" />
+                        </div>
+                        <!--<div class="form-group">
+                            <label for="node-label"><h6>Label</h6></label>
+                            <input type="text" class="form-control" id="node-label" value="Node 7" />
+                        </div>-->
+                        <div class="form-group" id="node-block">
+                            <label for="node-value"><h6>Heuristic-Value</h6></label>
+                            <input type="text" class="form-control" id="node-value" value="8" />
+                        </div>
+                        <div class="form-group text-center ">
+                            <h6>Action</h6>
+                            <button type="button" class="btn btn-primary" id="node-add" onclick="addNode(); ">Add</button>
+                            <!--<button type="button" class="btn btn-primary" id="node-update" onclick="updateNode(); ">Update</button>-->
+                            <button type="button" class="btn btn-primary" id="node-remove" onclick="removeNode(); ">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <h5 class="card-header">Edge</h5>
+                    <div class="card-body">
+                        <!--<div class="form-group">
+                            <label for="edge-id"><h6>Id</h6></label>
+                            <input type="text" class="form-control" id="edge-id" value="7" />
+                        </div>-->
+                        <div class="form-group">
+                            <label for="edge-from"><h6>From</h6></label>
+                            <input type="text" class="form-control" id="edge-from" value="H" />
+                        </div>
+                        <div class="form-group">
+                            <label for="edge-to"><h6>To</h6></label>
+                            <input type="text" class="form-control" id="edge-to" value="G" />
+                        </div>
+                        <div class="form-group" id="edge-block">
+                            <label for="edge-value"><h6>Heuristic-Value</h6></label>
+                            <input type="text" class="form-control" id="edge-value" value="7" />
+                        </div>
+                        <div class="form-group text-center ">
+                            <h6>Action</h6>
+                            <button type="button" class="btn btn-success" id="edge-add" onclick="addEdge(); ">Add</button>
+                            <!--<button type="button" class="btn btn-success" id="edge-update" onclick="updateEdge(); ">Update</button>-->
+                            <button type="button" class="btn btn-success" id="edge-remove" onclick="removeEdge(); ">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="margin-top: 100px;">
+        <div class="row">
+            <table id="nodes-table" class="table table-striped table-hover">
+                <thead>
+
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="container" style="margin-top: 100px;">
+        <div class="row">
+            <table id="edges-table" class="table table-striped table-hover">
+                <thead>
+
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="container-fluid" style="margin-top:100px; ">
+        <h1 style=" text-align: center; margin-bottom: 40px;">Work Place</h1>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <h5 class="card-header">Settings</h5>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="start"><h6>Start-Node</h6></label>
+                            <input type="text" class="form-control" id="start" value="S" />
+                        </div>
+                        <div class="form-group">
+                            <label for="node-label"><h6>Finish-Node</h6></label>
+                            <input type="text" class="form-control" id="finish" value="G" />
+                        </div>
+                        <div class="form-group text-center ">
+                            <h6>Action</h6>
+                            <button type="button" class="btn btn-warning" id="start-algorithm" onclick="startAlgorithm(); " style="color: white; ">seacrh</button>
+                            <button type="button" class="btn btn-warning" id="clear" onclick="clearGraph(); " style="color: white; ">clear</button>
+                            <button type="button" class="btn btn-warning" id="destroy" onclick="destroyGraph(); " style="color: white; ">destroy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="card">
+                    <h5 class="card-header">Graph</h5>
+                    <div class="card-body" style="padding: 0 0 0 0;">
+                        <div id="mynetwork" style="width: 100%;height: 700px;"></div>
+                    </div>
+                </div>
+                <!--<h1 style="text-align: center">Graph</h1>
+                <div id="mynetwork" style="width: 100%;height:1000px;border:2px solid"></div>-->
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="margin-top: 50px;">
+        <div class="row">
+            <table id="table-summary" class="table table-hover table-striped">
+                <thead></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--<div class="container" style="margin-top:100px;">
+        <div class="row">
+            <div class="col">
+                <h2>Node</h2>
+                <pre id="nodes"></pre>
+            </div>
+            <div class="col">
+                <h2>Edge</h2>
+                <pre id="edges"></pre>
+            </div>
+        </div>
+    </div>-->
+
+    <footer id="main-footer" class="text-center p-4" style="margin-top: 100px;background-color: #212529;">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p>Copyright &copy;
+                        <span id="year"></span> Borislav Nikolic</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div>
+        <div id="myModal" class="modal fade " tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Board</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Choose an algorithm:</label>
+                                <select class="form-control" id="control-select">
+                                   <option value="1">breadh-first</option>
+                                   <option value="2">deapth-first</option>
+                                   <option value="3">hill-climbing</option>
+                                   <option value="4">first-best</option>
+                                   <option value="5">branch-and-bound</option>
+                                   <option value="6">A*</option>
+                              </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="choosingAlgorithm(); ">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div id="errorModal" class="modal fade " tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Error Board</h5>
+                    </div>
+                    <div class="modal-body">
+                        <h5 id="errorMessage" style="color:tomato"></h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="$('#errorModal').modal('hide')">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript " src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js "></script>
+    <script type="text/javascript " src="code.js "></script>
+
+    <script>
+        $('#year').text(new Date().getFullYear());
+    </script>
+</body>
+
+</html>
